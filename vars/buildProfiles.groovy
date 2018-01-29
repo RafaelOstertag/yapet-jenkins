@@ -1,4 +1,4 @@
-def profiles = [
+@groovy.transform.Field profiles = [
     //
     // Linux
     //
