@@ -21,7 +21,7 @@ void autoconf() {
 }
 
 void build(system) {
-    buildProfiles.profiles[system].each { profileName, profile ->
+    profiles[system].each { profileName, profile ->
 	environmentVariables = profile.env
 	objectDirectoryName = "obj-" + profileName
     
