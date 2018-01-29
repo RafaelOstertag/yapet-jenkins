@@ -20,37 +20,39 @@ void autoconf() {
     }
 }
 
-void build(profileName) {
-    environmentVariables = buildProfiles[profileName].env
-    objectDirectoryName = "obj-" + profileName
+void build(system) {
+    buildProfiles.profiles[system].each { profileName, profile ->
+	environmentVariables = profile.env
+	objectDirectoryName = "obj-" + profileName
     
-    stage(makeStageName("configure " + profileName)) {
-	dir (objectDirectoryName) {
-	    withEnv(environmentVariables) {
-		sh "../configure " + buildProfiles[profileName].flags.join(" ")
+	stage(makeStageName("configure " + profileName)) {
+	    dir (objectDirectoryName) {
+		withEnv(environmentVariables) {
+		    sh "../configure " + profile.flags.join(" ")
+		}
 	    }
 	}
-    }
-    stage(makeStageName("docs " + profileName)) {
-	dir (objectDirectoryName + '/doc') {
-	    withEnv(environmentVariables) {
-		sh '$MAKE -f Makefile.doc'
+	stage(makeStageName("docs " + profileName)) {
+	    dir (objectDirectoryName + '/doc') {
+		withEnv(environmentVariables) {
+		    sh '$MAKE -f Makefile.doc'
+		}
 	    }
 	}
-    }
     
-    stage(makeStageName("build " + profileName)) {
-	dir (objectDirectoryName) {
-	    withEnv(environmentVariables) {
-		sh '$MAKE all'
+	stage(makeStageName("build " + profileName)) {
+	    dir (objectDirectoryName) {
+		withEnv(environmentVariables) {
+		    sh '$MAKE all'
+		}
 	    }
 	}
-    }
 
-    stage(makeStageName("check " + profileName)) {
-	dir (objectDirectoryName) {
-	    withEnv(environmentVariables) {
-		sh '$MAKE check'
+	stage(makeStageName("check " + profileName)) {
+	    dir (objectDirectoryName) {
+		withEnv(environmentVariables) {
+		    sh '$MAKE check'
+		}
 	    }
 	}
     }
