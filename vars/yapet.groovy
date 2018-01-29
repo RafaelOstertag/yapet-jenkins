@@ -21,7 +21,7 @@ def autoconf() {
 }
 
 def build(system) {
-    profiles[system].each { profileName, profile ->
+    buildProfiles.profiles[system].each { profileName, profile ->
 	environmentVariables = profile.env
 	objectDirectoryName = "obj-" + profileName
     
