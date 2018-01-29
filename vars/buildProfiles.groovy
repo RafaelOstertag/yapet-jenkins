@@ -22,7 +22,28 @@ profiles = [
     //
     // OpenBSD
     //
-    "OpenBSd": [
+    "OpenBSD": [
+	"default" : [
+	    "env": [
+		"CC=cc",
+		"CXX=c++",
+		"CPP=cpp",
+		"LDFLAGS=",
+		"CFLAGS=",
+		"CXXFLAGS=",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog",
+		"MAKE=gmake"
+	    ],
+	    "flags": [
+		"--disable-silent-rules",
+		"--enable-debug"
+	    ]
+	]
+    ],
+    //
+    // NetBSD
+    //
+    "NetBSD": [
 	"default" : [
 	    "env": [
 		"CC=cc",
