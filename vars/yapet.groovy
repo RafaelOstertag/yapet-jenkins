@@ -1,3 +1,9 @@
+// Functions used by YAPET's Jenkinsfile.
+
+/**
+ * Make a stage name by appending the node name. This allows recording
+ * the status of the 'same' stage for different nodes.
+ */
 def makeStageName(name) {
     return name + " " + NODE_NAME
 }
@@ -20,8 +26,13 @@ def autoconf() {
     }
 }
 
-def build(system) {
-    buildProfiles.profiles[system].each { profileName, profile ->
+/**
+ * Build for a given operating system.
+ *
+ * @param system operating system. Refer to buildProfiles.groovy.
+ */
+def build(operatingSystem) {
+    buildProfiles.profiles[operatingSystem].each { profileName, profile ->
 	environmentVariables = profile.env
 	objectDirectoryName = "obj-" + profileName
     

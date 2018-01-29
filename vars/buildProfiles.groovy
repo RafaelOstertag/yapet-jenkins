@@ -1,4 +1,29 @@
-@groovy.transform.Field profiles = [
+// Build profiles used on various operating systems.
+
+/**
+ * The general format is:
+ *
+ * // ...
+ * "<OS>": [
+ *    "<PROFILE>" : [
+ *       "env" : [ ]
+ *       "flags" : []
+ *    ]
+ * ]
+ *
+ * Where `<OS>` is the operating system name which is passed to
+ * `yapet.build()`. `<PROFILE>` is the profile name. 
+ *
+ * `"env"` contains environment variables passed to the configure
+ * shell script and make. It must contain 'MAKE=', since it's
+ * existence is assumed by the stages called in `yapet.build()`.
+ *
+ * `"flags"` are passed as command line arguments to the configure
+ * shell script.
+ */
+
+ @groovy.transform.Field
+ profiles = [
     //
     // Linux
     //
@@ -16,7 +41,7 @@
 	    "flags": [
 		"--disable-silent-rules",
 		"--enable-debug"
-	]
+	    ]
 	]
     ],
     //
