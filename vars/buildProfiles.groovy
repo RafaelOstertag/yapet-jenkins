@@ -1,4 +1,4 @@
-profiles = [
+def profiles = [
     //
     // Linux
     //
@@ -63,7 +63,7 @@ profiles = [
     ],
     //
     // FreeBSD
-    // 
+    //
     "FreeBSD": [
 	"default" : [
 	    "env": [
@@ -232,4 +232,3 @@ profiles = [
 	]
     ]
 ]
-    

@@ -1,14 +1,14 @@
-void makeStageName(name) {
+def makeStageName(name) {
     return name + " " + NODE_NAME
 }
 
-void checkout() {
+def checkout() {
     stage(makeStageName("checkout")) {
 	checkout scm
     }
 }
 
-void autoconf() {
+def autoconf() {
     stage(makeStageName("autoconf")) {
 	touch "README"
 	touch "ChangeLog"
@@ -20,7 +20,7 @@ void autoconf() {
     }
 }
 
-void build(system) {
+def build(system) {
     profiles[system].each { profileName, profile ->
 	environmentVariables = profile.env
 	objectDirectoryName = "obj-" + profileName
