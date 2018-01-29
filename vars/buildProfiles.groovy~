@@ -1,0 +1,18 @@
+linuxProfiles = [
+    "default" : [
+	"env": [
+	    "CC=cc",
+	    "CXX=c++",
+	    "CPP=cpp",
+	    "LDFLAGS=",
+	    "CFLAGS=",
+	    "CXXFLAGS=",
+	    "MAKE=make"
+	],
+	"flags": [
+	    "--disable-silent-rules",
+	    "--enable-debug"
+	]
+    ]
+]
+    
