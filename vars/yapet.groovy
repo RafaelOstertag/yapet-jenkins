@@ -35,6 +35,10 @@ def build(operatingSystem) {
     buildProfiles.profiles[operatingSystem].each { profileName, profile ->
 	environmentVariables = profile.env
 	objectDirectoryName = "obj-" + profileName
+
+	stage(makeStageName("clean " + profileName) {
+	    sh "rm -rf $objectDirectoryName"
+	}
     
 	stage(makeStageName("configure " + profileName)) {
 	    dir (objectDirectoryName) {
