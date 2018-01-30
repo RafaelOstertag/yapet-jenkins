@@ -36,7 +36,7 @@ def build(operatingSystem) {
 	environmentVariables = profile.env
 	objectDirectoryName = "obj-" + profileName
 
-	stage(makeStageName("clean " + profileName) {
+	stage(makeStageName("clean " + profileName)) {
 	    sh "rm -rf $objectDirectoryName"
 	}
     
