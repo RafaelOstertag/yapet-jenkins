@@ -36,7 +36,8 @@
 		"LDFLAGS=",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=make"
+		"MAKE=make",
+		"XML_CATALOG_FILES=/etc/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -56,7 +57,7 @@
 		"LDFLAGS=",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"XML_CATALOG_FILES=/usr/local/share/xml/catalog",
+		"XML_CATALOG_FILES=/usr/local/share/xml/docbook/catalog.xml",
 		"MAKE=gmake"
 	    ],
 	    "flags": [
@@ -77,7 +78,7 @@
 		"LDFLAGS=",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"XML_CATALOG_FILES=/usr/local/share/xml/catalog",
+		"XML_CATALOG_FILES=/usr/pkg/share/xml/catalog",
 		"MAKE=gmake"
 	    ],
 	    "flags": [
@@ -98,7 +99,8 @@
 		"LDFLAGS=",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -113,7 +115,8 @@
 		"LDFLAGS=-L/usr/local/llvm50/lib -Wl,-rpath -Wl,/usr/local/llvm50/lib",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -128,7 +131,8 @@
 		"LDFLAGS=-L/usr/local/llvm34/lib -Wl,-rpath -Wl,/usr/local/llvm34/lib",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -143,7 +147,8 @@
 		"LDFLAGS=-L/usr/local/llvm35/lib -Wl,-rpath -Wl,/usr/local/llvm35/lib",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -158,7 +163,8 @@
 		"LDFLAGS=-L/usr/local/llvm38/lib -Wl,-rpath -Wl,/usr/local/llvm38/lib",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -173,7 +179,8 @@
 		"LDFLAGS=-L/usr/local/lib/gcc47 -Wl,-rpath -Wl,/usr/local/lib/gcc47",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -188,7 +195,8 @@
 		"LDFLAGS=-L/usr/local/lib/gcc48 -Wl,-rpath -Wl,/usr/local/lib/gcc48",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -203,7 +211,8 @@
 		"LDFLAGS=-L/usr/local/lib/gcc49 -Wl,-rpath -Wl,/usr/local/lib/gcc49",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -218,7 +227,8 @@
 		"LDFLAGS=-L/usr/local/lib/gcc5 -Wl,-rpath -Wl,/usr/local/lib/gcc5",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -233,7 +243,8 @@
 		"LDFLAGS=-L/usr/local/lib/gcc6 -Wl,-rpath -Wl,/usr/local/lib/gcc6",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
@@ -248,7 +259,8 @@
 		"LDFLAGS=-L/usr/local/lib/gcc7 -Wl,-rpath -Wl,/usr/local/lib/gcc7",
 		"CFLAGS=",
 		"CXXFLAGS=",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
