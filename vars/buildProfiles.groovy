@@ -83,7 +83,8 @@
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
-		"--enable-debug"
+		"--enable-debug",
+		"--with-openssl=/usr"
 	    ]
 	]
     ],
