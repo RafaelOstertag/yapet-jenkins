@@ -108,6 +108,22 @@
 		"--enable-debug"
 	    ]
 	],
+	"fb-clang60-ports" : [
+	    "env": [
+		"CC=clang60",
+		"CXX=clang++60",
+		"CPP=clang-cpp60",
+		"LDFLAGS=-L/usr/local/llvm60/lib -Wl,-rpath -Wl,/usr/local/llvm60/lib",
+		"CFLAGS=",
+		"CXXFLAGS=",
+		"MAKE=gmake",
+		"XML_CATALOG_FILES=/usr/local/share/xml/catalog"
+	    ],
+	    "flags": [
+		"--disable-silent-rules",
+		"--enable-debug"
+	    ]
+	],
 	"fb-clang50-ports" : [
 	    "env": [
 		"CC=clang50",
