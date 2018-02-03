@@ -118,3 +118,16 @@ def check(operatingSystem) {
 	}
     }
 }
+
+def notify(body) {
+    try {
+	body()
+	currentBuild.result = 'SUCCESS'
+    } catch (any) {
+	    currentBuild.result = 'FAILURE'  
+	} finally {
+		emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+Check console output at $BUILD_URL to view the results.''', recipientProviders: [[$class: 'CulpritsRecipientProvider']], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'rafi@guengel.ch'
+	    }
+}
