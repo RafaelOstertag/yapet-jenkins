@@ -26,20 +26,37 @@ def autoconf() {
     }
 }
 
-/**
- * Build for a given operating system.
- *
- * @param system operating system. Refer to buildProfiles.groovy.
- */
-def build(operatingSystem) {
-    buildProfiles.profiles[operatingSystem].each { profileName, profile ->
-	environmentVariables = profile.env
-	objectDirectoryName = "obj-" + profileName
+def runWithProfile(operatingSystem, body) {
 
+    ansiColor('xterm') {
+	buildProfiles.profiles[operatingSystem].each { profileName, profile ->
+	    environmentVariables = profile.env
+	    objectDirectoryName = "obj-" + profileName
+
+	    config = [
+		"environmentVariables": environmentVariables,
+		"profileName": profileName,
+		"profile": profile,
+		"objectDirectoryName": objectDirectoryName
+	    ]
+	    body.resolveStrategy = Closure.DELEGATE_FIRST
+	    body.delegate = config
+	    body()
+	}
+    }
+}
+
+/**
+ * Configure for a given operating system
+ *
+ * @param operatingSystem operating system. Refer to buildProfiles.groovy.
+ */
+def configure(operatingSystem) {
+    runWithProfile(operatingSystem) {
 	stage(makeStageName("clean " + profileName)) {
 	    sh "rm -rf $objectDirectoryName"
 	}
-    
+	    
 	stage(makeStageName("configure " + profileName)) {
 	    dir (objectDirectoryName) {
 		withEnv(environmentVariables) {
@@ -47,6 +64,17 @@ def build(operatingSystem) {
 		}
 	    }
 	}
+    }
+}
+
+/**
+ * Build YAPET documentation. This step is required when building
+ * yapet since it creates the man pages needed for complete build
+ *
+ * @param operatingSystem operating system. Refer to buildProfiles.groovy.
+ */
+def buildDoc(operatingSystem) {
+    runWithProfile(operatingSystem) {
 	stage(makeStageName("docs " + profileName)) {
 	    dir (objectDirectoryName + '/doc') {
 		withEnv(environmentVariables) {
@@ -54,15 +82,33 @@ def build(operatingSystem) {
 		}
 	    }
 	}
-    
-	stage(makeStageName("build " + profileName)) {
+    }
+}
+
+/**
+ * Build.
+ *
+ * @param operatingSystem operating system. Refer to buildProfiles.groovy.
+ */
+def build(operatingSystem) {
+    runWithProfile(operatingSystem) {
+    	stage(makeStageName("build " + profileName)) {
 	    dir (objectDirectoryName) {
 		withEnv(environmentVariables) {
 		    sh '$MAKE all'
 		}
 	    }
 	}
+    }
+}
 
+/**
+ * Build.
+ *
+ * @param operatingSystem operating system. Refer to buildProfiles.groovy.
+ */
+def check(operatingSystem) {
+    runWithProfile(operatingSystem) {
 	stage(makeStageName("check " + profileName)) {
 	    dir (objectDirectoryName) {
 		withEnv(environmentVariables) {
