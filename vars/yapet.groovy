@@ -14,11 +14,23 @@ def checkout() {
     }
 }
 
+def makeChangeLog() {
+    stage(makeStageName("ChangeLog")) {
+	sh "git log --stat > ChangeLog"
+    }
+}
+
+def makeLibyacursSubmoduleChangeLog() {
+    stage(makeStageName("ChangeLog submodule")) {
+	dir("libyacurs") {
+	    sh "git log --stat > ChangeLog"
+	}
+    }
+}
+
 def autoconf() {
     stage(makeStageName("autoconf")) {
 	touch "README"
-	touch "ChangeLog"
-	touch "libyacurs/ChangeLog"
 	// AUTOCONF_VERSION and AUTOMAKE_VERSION is used on OpenBSD.
 	withEnv(["AUTOCONF_VERSION=2.69", "AUTOMAKE_VERSION=1.15"]) {
 	    sh "autoreconf -I m4 -i"
