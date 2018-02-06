@@ -1,6 +1,14 @@
+/**
+ * Build dist tarball.
+ */
+
+/**
+  * call `gmake distcheck`. It expects the directory `obj-default`
+  *  to exists and being configure
+  */
 def checkDist() {
     stage("Check Dist") {
-	directory("obj-default") {
+	dir("obj-default") {
 	    sh "gmake distcheck"
 	}
     }
@@ -8,59 +16,58 @@ def checkDist() {
 
 def makeDist() {
     stage("Make dist tarballs") {
-	directory("obj-default") {
+	dir("obj-default") {
 	    sh "gmake dist-gzip dist-bzip2 dist-xz"
 	}
     }
 }
 
-def matchReleaseBranch() {
-    return BRANCH_NAME =~ /release\/([0-9]+(?:\.[0-9])+)/
-}
-
 def isReleaseBranch() {
-    if (matchReleaseBranch()) {
-	return true
-    } else {
-	return false
-    }
+    return BRANCH_NAME.startsWith("release/")
 }
 
 def getRelease() {
-    releaseMatch = matchReleaseBranch()
-    if (releaseMatch) {
-	return releaseMatch.group(1)
-    }
-
-    return null
+    return BRANCH_NAME.split("/")[1]
 }
 
 def readVersionFromConfigureAc() {
     configureAc = readFile 'configure.ac'
-    match = configureAc =~ /AC_INIT\(\[[a-zA-Z]+\],\[([0-9]+(?:\.[0-9])+\],/
-    if (match) {
-	return match.group(1)
+    for (line in configureAc.split("\n") ) {
+	if (line.startsWith("AC_INIT(") ) {
+	    version = line
+		.split(",")[1]
+		.replace("[","")
+		.replace("]","")
+		.trim()
+	    return version
+	}
     }
-    error "No version found in configure.ac"
+
+    error "Unable to extract version from configure.ac"
 }
 
 def releasePreflight() {
     stage("Release Preflight") {
-	release = getRelease()
+	releaseVersion = getRelease()
+	echo "Branch is version $releaseVersion"
+	
 	configureVersion = readVersionFromConfigureAc()
-
-	if (release != configureVersion) {
+	echo "configure.ac is version $configureVersion"
+	
+	if (releaseVersion != configureVersion) {
 	    error "Release version '$release' does not match the version '$configureVersion' in configure.ac"
 	}
+	echo "Release preflight ok"
     }
 }
 
 def roll() {
     if (!isReleaseBranch()) {
-	echo "Not on release branch. Skipping."
+    	echo "Not on release branch. Skipping."
 	return
     }
-
+    
+    echo "On release branch. Going to roll release."
     releasePreflight()
     checkDist()
     makeDist()

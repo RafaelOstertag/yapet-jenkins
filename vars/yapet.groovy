@@ -135,8 +135,9 @@ def notify(body) {
     try {
 	body()
 	currentBuild.result = 'SUCCESS'
-    } catch (any) {
-	    currentBuild.result = 'FAILURE'  
+    } catch (e) {
+	    currentBuild.result = 'FAILURE'
+	    throw e
 	} finally {
 		emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
 
