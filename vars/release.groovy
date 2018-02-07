@@ -9,7 +9,7 @@
 def checkDist() {
     stage("Check Dist") {
 	dir("obj-default") {
-	    sh "gmake distcheck"
+	    sh "gmake distcheck DISTCHECK_CONFIGURE_FLAGS='--enable-nls  --with-libiconv-prefix=/usr/local --with-libintl-prefix=/usr/local'"
 	}
     }
 }
