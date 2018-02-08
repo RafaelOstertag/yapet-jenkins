@@ -54,6 +54,22 @@ def readVersionFromConfigureAc() {
     error "Unable to extract version from configure.ac"
 }
 
+def readPackageNameFromConfigureAc() {
+    configureAc = readFile 'configure.ac'
+    for (line in configureAc.split("\n") ) {
+	if (line.startsWith("AC_INIT(") ) {
+	    packageName = line
+		.split(",")[0]
+		.replace("AC_INIT([","")
+		.replace("]","")
+		.trim()
+	    return packageName
+	}
+    }
+
+    error "Unable to extract package name from configure.ac"
+}
+
 def releasePreflight() {
     stage("Release Preflight") {
 	releaseVersion = getRelease()
@@ -69,6 +85,16 @@ def releasePreflight() {
     }
 }
 
+def publish() {
+    stage("Publish") {
+	packageName = readPackageNameFromConfigureAc()
+	version = readVersionFromConfigureAc()
+	sshagent(['0b266ecf-fa80-4fe8-bce8-4c723f5ba47a']) {
+	    sh "scp ${packageName}-${version}.tar.* yapet-deploy@eventhorizon.dmz.kruemel.home:/var/www/jails/www/usr/local/www/apache24/data/myapps/yapet/downloads/"
+	}
+    }
+}
+
 def roll() {
     if (!isReleaseBranch()) {
     	echo "Not on release branch. Skipping."
@@ -79,4 +105,5 @@ def roll() {
     releasePreflight()
     checkDist()
     makeDist()
+    publish()
 }
