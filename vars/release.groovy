@@ -8,17 +8,17 @@
   */
 def checkDist() {
     stage("Check Dist") {
-	try {
+	// try {			
 	    dir("obj-default") {
 		sh "gmake distcheck DISTCHECK_CONFIGURE_FLAGS='--enable-nls  --with-libiconv-prefix=/usr/local --with-libintl-prefix=/usr/local'"
 	    }
-	} catch (ex) {
-	    echo "Granting write access after distcheck failure"
-	    dir("obj-default") {
-		sh "chmod -R u+w ."
-	    }
-	    throw ex
-    }
+	// } catch (ex) {
+	//     echo "Granting write access after distcheck failure"
+	//     dir("obj-default") {
+	// 	sh "chmod -R u+w ."
+	//     }
+	//     throw ex
+	// }
 }
 
 def makeDist() {
