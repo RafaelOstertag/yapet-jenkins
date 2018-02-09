@@ -22,8 +22,29 @@
  * shell script.
  */
 
- @groovy.transform.Field
- profiles = [
+@groovy.transform.Field
+profiles = [
+    //
+    // Solaris
+    //
+    "Solaris": [
+	"default" : [
+	    "env": [
+		"CC=cc",
+		"CXX=CC",
+		"LDFLAGS=",
+		"CFLAGS=",
+		"CXXFLAGS=",
+		"MAKE=gmake"
+		// ,
+		// "XML_CATALOG_FILES=/etc/xml/catalog"
+	    ],
+	    "flags": [
+		"--disable-silent-rules",
+		"--enable-debug"
+	    ]
+	]
+    ],
     //
     // Linux
     //
