@@ -10,18 +10,21 @@ def makeStageName(name) {
 
 def checkout() {
     stage(makeStageName("checkout")) {
+	github.notifyPending("checkout")
 	checkout scm
     }
 }
 
 def makeChangeLog() {
     stage(makeStageName("ChangeLog")) {
+	github.notifyPending("ChangeLog")
 	sh "git log --stat > ChangeLog"
     }
 }
 
 def makeLibyacursSubmoduleChangeLog() {
     stage(makeStageName("ChangeLog submodule")) {
+	github.notifyPending("ChangeLog submodule")
 	dir("libyacurs") {
 	    sh "git log --stat > ChangeLog"
 	}
@@ -30,6 +33,7 @@ def makeLibyacursSubmoduleChangeLog() {
 
 def autoconf() {
     stage(makeStageName("autoconf")) {
+	github.notifyPending("autoconf")
 	touch "README"
 	// AUTOCONF_VERSION and AUTOMAKE_VERSION is used on OpenBSD.
 	withEnv(["AUTOCONF_VERSION=2.69", "AUTOMAKE_VERSION=1.15"]) {
@@ -39,7 +43,6 @@ def autoconf() {
 }
 
 def runWithProfile(operatingSystem, body) {
-
     ansiColor('xterm') {
 	buildProfiles.profiles[operatingSystem].each { profileName, profile ->
 	    environmentVariables = profile.env
@@ -51,6 +54,7 @@ def runWithProfile(operatingSystem, body) {
 		"profile": profile,
 		"objectDirectoryName": objectDirectoryName
 	    ]
+	    github.notifyPending("Building " + profileName)
 	    body.resolveStrategy = Closure.DELEGATE_FIRST
 	    body.delegate = config
 	    body()
@@ -135,11 +139,13 @@ def notify(body) {
     try {
 	body()
 	currentBuild.result = 'SUCCESS'
+	github.notifySuccess("Finished")
     } catch (e) {
-	    currentBuild.result = 'FAILURE'
-	    throw e
-	} finally {
-		emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+	currentBuild.result = 'FAILURE'
+	github.notifyFailure("Failure")
+	throw e
+    } finally {
+	emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
 
 Check console output at $BUILD_URL to view the results.''', recipientProviders: [[$class: 'DevelopersRecipientProvider']], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'rafi@guengel.ch'
 	    }
