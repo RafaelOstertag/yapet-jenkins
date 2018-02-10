@@ -138,10 +138,10 @@ def notify(body) {
     try {
 	body()
 	currentBuild.result = 'SUCCESS'
-	github.notifySuccess("Finished")
+	github.notifySuccess("All systems go")
     } catch (e) {
 	currentBuild.result = 'FAILURE'
-	github.notifyFailure("Failure")
+	github.notifyFailure("Houston, we've had a problem here")
 	throw e
     } finally {
 	emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
