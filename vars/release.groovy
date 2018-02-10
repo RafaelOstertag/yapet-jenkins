@@ -25,7 +25,7 @@ def checkDist() {
 def makeDist() {
     stage("Make dist tarballs") {
 	dir("obj-default") {
-	    sh "gmake dist-gzip dist-bzip2 dist-xz"
+	    sh "gmake dist"
 	}
     }
 }
