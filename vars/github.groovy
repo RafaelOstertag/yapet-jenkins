@@ -37,7 +37,8 @@ def notify(message, status) {
 	repoName = getRepositoryName()
 	echo "Notify github $repoName for commit $gitCommit on $BRANCH_NAME"
 	githubNotify account: 'RafaelOstertag', context: "jenkins/" + NODE_NAME, credentialsId: '4547e0fb-4542-457a-b52e-f579dbc08ea6', description: message, repo: repoName, sha: gitCommit, status: status
-    }
+    } else {
+	echo "Not notifiying Github, not a pull request"
 }
 
 
