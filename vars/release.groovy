@@ -62,7 +62,7 @@ def readPackageNameFromConfigureAc() {
 		.split(",")[0]
 		.replace("AC_INIT([","")
 		.replace("]","")
-		.toLower()
+		.toLowerCase()
 		.trim()
 	    return packageName
 	}
