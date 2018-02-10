@@ -105,7 +105,7 @@ EOF
     }
 }
 
-def roll() {
+def roll(operatingSystem) {
     if (!isReleaseBranch()) {
     	echo "Not on release branch. Skipping."
 	return
@@ -113,6 +113,7 @@ def roll() {
     
     echo "On release branch. Going to roll release."
     releasePreflight()
+    yapet.configure(operatingSystem)
     checkDist()
     makeDist()
     publish()
