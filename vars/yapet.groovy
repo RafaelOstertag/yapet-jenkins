@@ -10,7 +10,6 @@ def makeStageName(name) {
 
 def checkout() {
     stage(makeStageName("checkout")) {
-	github.notifyPending("checkout")
 	checkout scm
     }
 }
