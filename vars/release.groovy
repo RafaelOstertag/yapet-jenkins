@@ -95,12 +95,10 @@ def publish() {
 	dir("obj-default") {
 	    sshagent(['0b266ecf-fa80-4fe8-bce8-4c723f5ba47a']) {
 		// Eventhorizon only allows sftp
-		sh """sftp yapet-deploy@eventhorizon.dmz.kruemel.home:/var/www/jails/www/usr/local/www/apache24/data/myapps/yapet/downloads/ <<EOF
+		sh """sftp yapet-deploy@eventhorizon.dmz.kruemel.home:/var/www/jails/yapet/usr/local/www/apache24/data/downloads/ <<EOF
 put ${packageName}-${version}.tar.gz
 put ${packageName}-${version}.tar.bz2
 put ${packageName}-${version}.tar.xz
-put ../NEWS NEWS-${version}
-put ../ChangeLog ChangeLog-${version}
 EOF
 """
 	    }
