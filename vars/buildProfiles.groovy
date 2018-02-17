@@ -79,7 +79,9 @@ profiles = [
 		"CFLAGS=",
 		"CXXFLAGS=",
 		"XML_CATALOG_FILES=/usr/local/share/xml/docbook/catalog.xml",
-		"MAKE=gmake"
+		"MAKE=gmake",
+		"AUTOCONF_VERSION=2.69",
+		"AUTOMAKE_VERSION=1.15"
 	    ],
 	    "flags": [
 		"--disable-silent-rules",
